@@ -19,6 +19,7 @@
                 <li><a href="#experiencia"><i class="fas fa-briefcase"></i> Experiencia</a></li>
                 <li><a href="#educacion"><i class="fas fa-graduation-cap"></i> Educación</a></li>
                 <li><a href="#proyectos"><i class="fas fa-project-diagram"></i> Proyectos</a></li>
+                <li><a href="#videos"><i class="fab fa-youtube"></i> Videos</a></li>
             </ul>
             <button class="menu-toggle"><i class="fas fa-bars"></i></button>
         </nav>
@@ -366,6 +367,50 @@ y den vida a las marcas en redes sociales."</p>
         </nav>
     </section>
 
+    <!-- ===========================
+           VIDEOS SECTION
+           =========================== -->
+    <section id="videos" class="videos-section">
+        <h2 class="videos-title">
+            Videos de <span>Marketing</span>
+        </h2>
+        <div class="videos-grid">
+            <!-- Video 1 -->
+            <article class="video-card" data-video-src="videos/marketing-video-1.mp4">
+                <div class="video-thumbnail">
+                    <img src="files/Luma.jpg"
+                        alt="Miniatura del video 1">
+                    <div class="play-overlay"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-titulo">Campaña Verano 2024</h3>
+                    <a href="https://www.instagram.com/reel/DGzKlWFJsr_/?igsh=MTF5aW91ajVteTZuMw==" class="video-social-link" target="_blank" rel="noopener noreferrer">
+                        Ver en Instagram <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </article>
+            <!-- Video 2 -->
+            <article class="video-card" data-video-src="https://www.w3schools.com/html/mov_bbb.mp4">
+                <div class="video-thumbnail">
+                    <img src="https://via.placeholder.com/400x500.png/FDE8EC/73434F?text=Video+2"
+                        alt="Miniatura del video 2">
+                    <div class="play-overlay"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-titulo">Reel de Producto</h3>
+                    <a href="#" class="video-social-link" target="_blank" rel="noopener noreferrer">
+                        Ver en TikTok <i class="fab fa-tiktok"></i>
+                    </a>
+                </div>
+            </article>
+            <!-- Agrega más videos aquí -->
+        </div>
+        <!-- Paginación para Videos -->
+        <nav class="pagination videos-pagination" aria-label="Páginas de videos">
+            <!-- Los puntos de paginación se generarán con JavaScript -->
+        </nav>
+    </section>
+
     <section class="software-strip">
         <div class="logos-container">
             <!-- Primera copia de los logos -->
@@ -391,6 +436,16 @@ y den vida a las marcas en redes sociales."</p>
     </section>
 
     <script src="script.js"></script>
+
+    <!-- ===========================
+           VIDEO MODAL (LIGHTBOX)
+           =========================== -->
+    <div id="video-modal" class="video-modal">
+        <div class="video-modal-content">
+            <span class="close-modal">&times;</span>
+            <video id="modal-video-player" src="" controls></video>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -48,45 +48,83 @@ window.addEventListener('scroll', navHighlighter);
 // Llama a la función una vez al cargar la página para establecer el estado inicial correcto
 document.addEventListener('DOMContentLoaded', navHighlighter);
 
-// --- Lógica de Paginación para la sección de Proyectos ---
-document.addEventListener('DOMContentLoaded', () => {
-    const projectsPerPage = 3; // Cambia este número para mostrar más o menos proyectos por página
-    const projectGrid = document.querySelector('.proyectos-grid');
-    const allProjects = Array.from(projectGrid.querySelectorAll('.proyecto-card'));
-    const paginationContainer = document.querySelector('.proyectos-pagination');
+// --- Lógica de Paginación y Modal de Video ---
 
-    const totalPages = Math.ceil(allProjects.length / projectsPerPage);
+// Función reutilizable para configurar la paginación
+function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
+    const grid = document.querySelector(gridClass);
+    if (!grid) return;
 
-    // Si no hay suficientes proyectos para necesitar paginación, no hacemos nada
+    const allItems = Array.from(grid.querySelectorAll(cardClass));
+    const paginationContainer = document.querySelector(paginationClass);
+    const totalPages = Math.ceil(allItems.length / itemsPerPage);
+
     if (totalPages <= 1) {
-        paginationContainer.style.display = 'none';
+        if (paginationContainer) paginationContainer.style.display = 'none';
         return;
     }
 
-    // Función para mostrar la página correcta
     function showPage(page) {
-        // Oculta todos los proyectos
-        allProjects.forEach(project => project.style.display = 'none');
+        allItems.forEach(item => item.style.display = 'none');
 
-        // Muestra solo los proyectos de la página actual
-        const startIndex = (page - 1) * projectsPerPage;
-        const endIndex = startIndex + projectsPerPage;
-        allProjects.slice(startIndex, endIndex).forEach(project => project.style.display = 'block');
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        allItems.slice(startIndex, endIndex).forEach(item => item.style.display = 'block');
 
-        // Actualiza el punto de paginación activo
-        document.querySelectorAll('.proyectos-pagination .pagination-dot').forEach((dot, index) => {
+        const dots = paginationContainer.querySelectorAll('.pagination-dot');
+        dots.forEach((dot, index) => {
             dot.classList.toggle('active', index + 1 === page);
         });
     }
 
-    // Crea los puntos de paginación
     for (let i = 1; i <= totalPages; i++) {
         const dot = document.createElement('span');
         dot.classList.add('pagination-dot');
-        dot.addEventListener('click', () => showPage(i));
+        dot.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showPage(i);
+        });
         paginationContainer.appendChild(dot);
     }
 
-    // Muestra la primera página por defecto
     showPage(1);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Configura la paginación para Proyectos
+    setupPagination('.proyectos-grid', '.proyecto-card', '.proyectos-pagination', 3);
+
+    // Configura la paginación para Videos
+    setupPagination('.videos-grid', '.video-card', '.videos-pagination', 2);
+
+    // --- Lógica del Modal de Video ---
+    const videoModal = document.getElementById('video-modal');
+    const modalVideoPlayer = document.getElementById('modal-video-player');
+    const closeModal = document.querySelector('.close-modal');
+    const videoCards = document.querySelectorAll('.video-card');
+
+    videoCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const videoSrc = card.getAttribute('data-video-src');
+            if (videoSrc) {
+                modalVideoPlayer.src = videoSrc;
+                videoModal.classList.add('active');
+                modalVideoPlayer.play(); // Inicia la reproducción automáticamente
+            }
+        });
+    });
+
+    const hideModal = () => {
+        videoModal.classList.remove('active');
+        modalVideoPlayer.pause();
+        modalVideoPlayer.src = ""; // Detiene la descarga del video para liberar recursos
+    };
+
+    closeModal.addEventListener('click', hideModal);
+    videoModal.addEventListener('click', (e) => {
+        // Cierra el modal si se hace clic en el fondo oscuro
+        if (e.target === videoModal) {
+            hideModal();
+        }
+    });
 });
