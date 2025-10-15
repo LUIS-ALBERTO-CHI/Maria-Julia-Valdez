@@ -1377,3 +1377,66 @@ body {
 .close-modal:hover {
     color: var(--accent-hot);
 }
+
+/* ===========================
+           FOOTER SECTION
+           =========================== */
+.site-footer {
+    background-color: var(--bg-element);
+    color: var(--text-dark);
+    padding: 80px 20px 30px;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.footer-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent-hot);
+    margin-bottom: 15px;
+}
+
+.footer-text {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer-socials {
+    margin-bottom: 50px;
+}
+
+.footer-socials a {
+    color: var(--text-dark);
+    font-size: 1.8rem;
+    margin: 0 15px;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.footer-socials a:hover {
+    color: var(--accent-hot);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--border-color);
+    padding-top: 30px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .footer-title { font-size: 2rem; }
+    .footer-text { font-size: 1rem; }
+    .footer-socials a { font-size: 1.6rem; margin: 0 12px; }
+}
