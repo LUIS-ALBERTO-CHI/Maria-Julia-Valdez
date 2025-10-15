@@ -287,6 +287,11 @@ body {
 }
 
 @media (max-width: 768px) {
+    .hero {
+        /* Aumentamos el padding inferior en móvil para que la sección de servicios no corte el contenido */
+        padding-bottom: 6rem; 
+    }
+
     .intro-text h1 {
         font-size: 3rem;
     }
@@ -296,12 +301,17 @@ body {
     }
 
     .profile-image {
-        max-width: 250px;
+        width: 220px; /* Tamaño fijo para el círculo */
+        height: 220px; /* Tamaño fijo para el círculo */
+        object-fit: cover; /* Asegura que la imagen llene el círculo sin deformarse */
+        object-position: top; /* Alinea la imagen a la parte superior para evitar cortes */
+        border-radius: 50%; /* Crea la forma circular */
+        border: 5px solid white; /* Borde blanco para un look profesional */
+        box-shadow: 0 8px 25px rgba(181, 131, 144, 0.25); /* Sombra sutil */
     }
 
     .profile-image-container::before {
-        width: 300px;
-        height: 150px;
+        display: none; /* Ocultamos el fondo de elipse anterior */
     }
 }
 
