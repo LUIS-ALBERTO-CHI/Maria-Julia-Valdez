@@ -45,8 +45,6 @@ const navHighlighter = () => {
 };
 
 window.addEventListener('scroll', navHighlighter);
-// Llama a la función una vez al cargar la página para establecer el estado inicial correcto
-document.addEventListener('DOMContentLoaded', navHighlighter);
 
 // --- Lógica de Paginación y Modal de Video ---
 
@@ -91,6 +89,13 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Llama a la función una vez al cargar la página para establecer el estado inicial correcto
+    navHighlighter();
+
+    // Configura las animaciones de fade-in
+    const elementsToFadeIn = document.querySelectorAll('.fade-in');
+    elementsToFadeIn.forEach(el => fadeInObserver.observe(el));
+
     // Configura la paginación para Proyectos
     setupPagination('.proyectos-grid', '.proyecto-card', '.proyectos-pagination', 3);
 
@@ -142,9 +147,4 @@ const fadeInObserver = new IntersectionObserver((entries, observer) => {
 }, {
     rootMargin: '0px',
     threshold: 0.1 // El elemento se animará cuando al menos el 10% sea visible
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const elementsToFadeIn = document.querySelectorAll('.fade-in');
-    elementsToFadeIn.forEach(el => fadeInObserver.observe(el));
 });
