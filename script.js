@@ -128,3 +128,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// --- Lógica para Animaciones al hacer Scroll ---
+const fadeInObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        } else {
+            // Si el elemento ya no está en la pantalla, quitamos la clase para que se pueda animar de nuevo
+            entry.target.classList.remove('visible');
+        }
+    });
+}, {
+    rootMargin: '0px',
+    threshold: 0.1 // El elemento se animará cuando al menos el 10% sea visible
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const elementsToFadeIn = document.querySelectorAll('.fade-in');
+    elementsToFadeIn.forEach(el => fadeInObserver.observe(el));
+});

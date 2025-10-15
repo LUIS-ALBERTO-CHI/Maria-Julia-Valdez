@@ -44,7 +44,7 @@ body {
     padding: 1rem 5%;
     background-color: #fde8ec80;
     border: 1px solid #f8d3da80;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(10px);
     border-radius: 50px;
     margin: 20px auto;
     max-width: 1200px;
@@ -53,6 +53,7 @@ body {
     top: 20px;
     left: 50%; /* Centramos horizontalmente */
     transform: translateX(-50%); /* Ajuste fino para el centrado */
+    box-shadow: 0 5px 20px rgba(181, 131, 144, 0.1);
     z-index: 100;
 }
 
@@ -309,10 +310,10 @@ body {
            =========================== */
 .services-section {
     position: relative;
-    margin-top: -50px; /* Sube la sección para superponerla a la anterior */
-    background: rgba(253, 232, 236, 0.6); /* Color rosa semitransparente */
-    backdrop-filter: blur(8px); /* El efecto de desenfoque del cristal */
-    -webkit-backdrop-filter: blur(8px); /* Para compatibilidad con Safari */
+    margin-top: -80px; /* Sube la sección para superponerla a la anterior */
+    background: rgba(255, 255, 255, 0.5); /* Fondo blanco semitransparente para un look más limpio */
+    backdrop-filter: blur(20px); /* Aumentamos el desenfoque para un efecto más premium */
+    -webkit-backdrop-filter: blur(20px); /* Para compatibilidad con Safari */
     border-radius: 50px 50px 0 0;
     border-top: 1px solid rgba(248, 211, 218, 0.5); /* Borde sutil para el cristal */
     border-left: 1px solid rgba(248, 211, 218, 0.5);
@@ -815,7 +816,7 @@ body {
 
 .experience-title {
     font-size: 3rem;
-    font-weight: 600;
+    font-weight: 700;
     text-align: center;
     margin-bottom: 80px;
     color: var(--text-dark);
@@ -974,7 +975,7 @@ body {
 
 .education-title {
     font-size: 3rem;
-    font-weight: 600;
+    font-weight: 700;
     text-align: center;
     margin-bottom: 80px;
     color: var(--text-dark);
@@ -1130,7 +1131,7 @@ body {
 
 .proyectos-title {
     font-size: 3rem;
-    font-weight: 600;
+    font-weight: 700;
     text-align: center;
     margin-bottom: 80px;
     color: var(--text-dark);
@@ -1232,7 +1233,7 @@ body {
 
 .videos-title {
     font-size: 3rem;
-    font-weight: 600;
+    font-weight: 700;
     text-align: center;
     margin-bottom: 80px;
     color: var(--text-dark);
@@ -1376,6 +1377,20 @@ body {
 
 .close-modal:hover {
     color: var(--accent-hot);
+}
+
+/* ===========================
+           MODERN ANIMATIONS
+           =========================== */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1), transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* ===========================
