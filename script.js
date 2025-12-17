@@ -156,6 +156,22 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
         if (nextBtnLocal) nextBtnLocal.disabled = (page === totalPagesLocal);
     }
 
+    // Función auxiliar para hacer scroll al inicio de la sección al cambiar de página
+    const scrollToSection = () => {
+        const section = grid.closest('section');
+        if (section) {
+            const header = document.querySelector('header');
+            const headerHeight = header ? header.offsetHeight : 0;
+            const elementPosition = section.offsetTop;
+            const offsetPosition = elementPosition - headerHeight - 20;
+            
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+        }
+    };
+
     // Crear botones de navegación
     const navContainer = document.createElement('div');
     navContainer.className = 'pagination-nav';
@@ -170,7 +186,10 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
         const currentActive = paginationContainer.querySelector('.pagination-btn.active');
         if (currentActive) {
                 const currentPage = parseInt(currentActive.dataset.page || currentActive.textContent);
-            if (currentPage > 1) showPage(currentPage - 1);
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+                scrollToSection();
+            }
         }
     });
     navContainer.appendChild(prevBtn);
@@ -185,6 +204,7 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             showPage(i);
+            scrollToSection();
         });
         navContainer.appendChild(btn);
     }
@@ -199,7 +219,10 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
         const currentActive = paginationContainer.querySelector('.pagination-btn.active');
         if (currentActive) {
                 const currentPage = parseInt(currentActive.dataset.page || currentActive.textContent);
-            if (currentPage < totalPages) showPage(currentPage + 1);
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+                scrollToSection();
+            }
         }
     });
     navContainer.appendChild(nextBtn);
