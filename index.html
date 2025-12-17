@@ -216,6 +216,81 @@
             background: linear-gradient(45deg, #1877F2, #3b5998);
             box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
         }
+
+        /* --- MEJORAS HERO MOBILE --- */
+        @media (min-width: 769px) {
+            .profile-actions {
+                display: none; /* Ocultar botones móviles en escritorio */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding-top: 150px; /* Más espacio para separar la cápsula del header */
+                padding-bottom: 60px;
+                height: auto;
+                min-height: 100vh;
+                display: flex;
+                align-items: flex-start; /* Evita que el contenido se pegue arriba */
+                justify-content: center;
+            }
+
+            .hero-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem; /* Ajuste UI: Reduce espacio vertical para mayor densidad */
+                width: 100%;
+            }
+
+            .main-intro {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                width: 100%;
+            }
+
+            .profile-image-container {
+                margin: 20px auto;
+                width: 260px;
+                height: 260px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* Ocultar overlay de botones sobre la imagen en móvil */
+            .profile-buttons-overlay {
+                display: none !important;
+            }
+
+            /* Estilos mejorados para botones móviles */
+            .profile-actions {
+                display: flex !important;
+                flex-direction: column;
+                gap: 12px; /* Ajuste UI: Agrupa mejor los botones */
+                width: 100%;
+                max-width: 320px;
+                margin: 10px auto 0;
+            }
+
+            .profile-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 14px; /* Ajuste UX/UI: Mantiene altura tocable (~45px) pero menos tosco */
+                font-size: 1.1rem;
+                border-radius: 50px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                transition: transform 0.1s, box-shadow 0.1s; /* Suaviza la animación */
+            }
+
+            /* Efecto de presionado */
+            .profile-btn:active {
+                transform: scale(0.96); /* Reduce el tamaño al 96% */
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra más pequeña */
+            }
+        }
             </style>
 </head>
 
@@ -279,8 +354,8 @@ y den vida a las marcas en redes sociales."</p>
                     </div>
                 </div>
                 <div class="profile-actions"> <!-- Nuevo contenedor para los botones en móvil -->
-                    <a href="files/Maria Julia Valdez Navarro Curriculum 2025.pdf" class="profile-btn btn-primary" download>Descargar CV</a>
-                    <a href="#servicios" class="profile-btn btn-secondary">Ver Portafolio</a>
+                    <a href="files/Maria Julia Valdez Navarro Curriculum 2025.pdf" class="profile-btn btn-primary" download><i class="fas fa-file-download" style="margin-right: 8px;"></i> Descargar CV</a>
+                    <a href="#proyectos" class="profile-btn btn-secondary"><i class="fas fa-briefcase" style="margin-right: 8px;"></i> Ver Portafolio</a>
                 </div>
             </div>
 
