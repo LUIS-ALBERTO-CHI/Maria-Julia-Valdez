@@ -118,14 +118,16 @@
             overflow: hidden;
             background: rgba(255, 255, 255, 0.05);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
+            cursor: pointer;
         }
 
         .video-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 105, 180, 0.2);
+            border-color: rgba(255, 105, 180, 0.3);
         }
 
         .video-thumbnail {
@@ -170,51 +172,20 @@
         }
 
         .video-info {
-            padding: 1.2rem;
-            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem 1rem;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.02), rgba(255,255,255,0.05));
             border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
         }
 
         .video-titulo {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-        }
-
-        .video-social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 10px;
-            border-radius: 12px;
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            color: white !important;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 15px rgba(220, 39, 67, 0.3);
-        }
-
-        .video-social-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(220, 39, 67, 0.5);
-        }
-
-        /* Estilo específico para TikTok */
-        .video-social-link[href*="tiktok"] {
-            background: linear-gradient(45deg, #000000, #25F4EE, #FE2C55);
-            box-shadow: 0 4px 15px rgba(0,0,0, 0.3);
-        }
-
-        /* Estilo específico para Facebook */
-        .video-social-link[href*="facebook"] {
-            background: linear-gradient(45deg, #1877F2, #3b5998);
-            box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
+            letter-spacing: 0.5px;
         }
 
         /* Animación de rotación Neon */
@@ -330,6 +301,23 @@
             .profile-btn:active {
                 transform: scale(0.96); /* Reduce el tamaño al 96% */
                 box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra más pequeña */
+            }
+
+            /* --- PAGINACIÓN MÓVIL (Números) --- */
+            .pagination-nav {
+                gap: 10px; /* Espacio cómodo entre números */
+            }
+
+            .pagination-btn {
+                width: 45px !important; /* Tamaño fijo para toque fácil */
+                height: 45px !important;
+                padding: 0 !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.2rem !important;
+                border-radius: 5px !important; /* Cuadrados */
+                min-width: 45px !important;
             }
         }
             </style>
@@ -679,9 +667,6 @@ y den vida a las marcas en redes sociales."</p>
                 </div>
                 <div class="video-info">
                     <h3 class="video-titulo">Paleta de sombras</h3>
-                    <a href="https://www.instagram.com/reel/DGzKlWFJsr_/?igsh=MTF5aW91ajVteTZuMw==" class="video-social-link" target="_blank" rel="noopener noreferrer">
-                        Ver en Instagram <i class="fab fa-instagram"></i>
-                    </a>
                 </div>
             </article>
             <article class="video-card" data-video-src="videos/KUBOTA.mp4">
@@ -702,9 +687,6 @@ y den vida a las marcas en redes sociales."</p>
                 </div>
                 <div class="video-info">
                     <h3 class="video-titulo">Tikal Sale</h3>
-                    <a href="https://www.instagram.com/reel/DKIilVlspCp/?igsh=YjNkZGI0dW5ma3Rs" class="video-social-link" target="_blank" rel="noopener noreferrer">
-                        Ver en Instagram <i class="fab fa-instagram"></i>
-                    </a>
                 </div>
             </article>
              <article class="video-card" data-video-src="videos/TIKAL2.mp4">
@@ -715,9 +697,6 @@ y den vida a las marcas en redes sociales."</p>
                 </div>
                 <div class="video-info">
                     <h3 class="video-titulo">Casas color pastel</h3>
-                    <a href="https://www.instagram.com/reel/DMgKVVbCq9L/?igsh=bWx2dDE1YzNzMmZm" class="video-social-link" target="_blank" rel="noopener noreferrer">
-                        Ver en Instagram <i class="fab fa-instagram"></i>
-                    </a>
                 </div>
             </article>
              <article class="video-card" data-video-src="videos/TIKAL3.mp4">
@@ -728,9 +707,6 @@ y den vida a las marcas en redes sociales."</p>
                 </div>
                 <div class="video-info">
                     <h3 class="video-titulo">Bodegas</h3>
-                    <a href="https://www.instagram.com/reel/DN1FwPCQh9C/?igsh=amljMTBjMTUzb3Bl" class="video-social-link" target="_blank" rel="noopener noreferrer">
-                        Ver en Instagram <i class="fab fa-instagram"></i>
-                    </a>
                 </div>
             </article>
             <article class="video-card" data-video-src="videos/TIKAL4.mp4">
@@ -741,9 +717,6 @@ y den vida a las marcas en redes sociales."</p>
                 </div>
                 <div class="video-info">
                     <h3 class="video-titulo">Casas Coloniales</h3>
-                    <a href="https://www.instagram.com/reel/DKcyxAPNMZ8/?igsh=NDJxdGp5Z2ljbW5n" class="video-social-link" target="_blank" rel="noopener noreferrer">
-                        Ver en Instagram <i class="fab fa-instagram"></i>
-                    </a>
                 </div>
             </article>
              <article class="video-card" data-video-src="videos/gusano.mp4">

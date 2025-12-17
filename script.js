@@ -129,10 +129,16 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
         // Clear inline display so CSS controls the card layout (flex/block as defined)
         paginatableItems.slice(startIndex, endIndex).forEach(item => item.style.display = '');
 
+        // Actualizar estado activo de los botones numerados
         const buttons = paginationContainer.querySelectorAll('.pagination-btn');
-        buttons.forEach((btn, index) => {
-            btn.classList.toggle('active', index + 1 === page);
-            btn.setAttribute('aria-current', index + 1 === page ? 'page' : 'false');
+        buttons.forEach((btn) => {
+            if (parseInt(btn.textContent) === page) {
+                btn.classList.add('active');
+                btn.setAttribute('aria-current', 'page');
+            } else {
+                btn.classList.remove('active');
+                btn.removeAttribute('aria-current');
+            }
         });
         
         // Scroll desactivado en paginación para evitar saltos de página en cualquier sección
@@ -148,12 +154,6 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
                 setTimeout(() => item.classList.add('visible'), i * 90);
             }
         });
-        // Update prev/next disabled states and respect the current total pages based on currently paginatable items
-        const totalPagesLocal = Math.ceil(paginatableItems.length / itemsPerPage) || 1;
-        const prevBtnLocal = paginationContainer.querySelector('.pagination-arrow-btn.prev-btn');
-        const nextBtnLocal = paginationContainer.querySelector('.pagination-arrow-btn.next-btn');
-        if (prevBtnLocal) prevBtnLocal.disabled = (page === 1);
-        if (nextBtnLocal) nextBtnLocal.disabled = (page === totalPagesLocal);
     }
 
     // Función auxiliar para hacer scroll al inicio de la sección al cambiar de página
@@ -162,45 +162,34 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
         if (section) {
             const header = document.querySelector('header');
             const headerHeight = header ? header.offsetHeight : 0;
-            const elementPosition = section.offsetTop;
-            const offsetPosition = elementPosition - headerHeight - 20;
             
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: "smooth"
-            });
+            // Verificar si el inicio de la sección está visible en el viewport
+            const rect = section.getBoundingClientRect();
+            
+            // Solo hacer scroll si la parte superior de la sección está oculta por arriba (scrolled past)
+            if (rect.top < headerHeight) {
+                const elementPosition = section.offsetTop;
+                const offsetPosition = elementPosition - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
         }
     };
 
     // Crear botones de navegación
     const navContainer = document.createElement('div');
     navContainer.className = 'pagination-nav';
-    
-    // Botón anterior
-    const prevBtn = document.createElement('button');
-    prevBtn.className = 'pagination-arrow-btn prev-btn';
-    prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
-    prevBtn.setAttribute('aria-label', 'Página anterior');
-        prevBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const currentActive = paginationContainer.querySelector('.pagination-btn.active');
-        if (currentActive) {
-                const currentPage = parseInt(currentActive.dataset.page || currentActive.textContent);
-            if (currentPage > 1) {
-                showPage(currentPage - 1);
-                scrollToSection();
-            }
-        }
-    });
-    navContainer.appendChild(prevBtn);
 
     // Botones numerados
     for (let i = 1; i <= totalPages; i++) {
         const btn = document.createElement('button');
-        btn.classList.add('pagination-btn');
-            btn.textContent = i; // kept for accessibility if visible
-            btn.dataset.page = i; // use dataset to track page without relying on textContent
+        btn.className = 'pagination-btn';
+        btn.textContent = i;
         btn.setAttribute('aria-label', `Página ${i}`);
+        
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             showPage(i);
@@ -208,24 +197,6 @@ function setupPagination(gridClass, cardClass, paginationClass, itemsPerPage) {
         });
         navContainer.appendChild(btn);
     }
-
-    // Botón siguiente
-    const nextBtn = document.createElement('button');
-    nextBtn.className = 'pagination-arrow-btn next-btn';
-    nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
-    nextBtn.setAttribute('aria-label', 'Página siguiente');
-        nextBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const currentActive = paginationContainer.querySelector('.pagination-btn.active');
-        if (currentActive) {
-                const currentPage = parseInt(currentActive.dataset.page || currentActive.textContent);
-            if (currentPage < totalPages) {
-                showPage(currentPage + 1);
-                scrollToSection();
-            }
-        }
-    });
-    navContainer.appendChild(nextBtn);
 
     paginationContainer.appendChild(navContainer);
     showPage(1);
