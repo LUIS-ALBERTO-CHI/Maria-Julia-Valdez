@@ -188,50 +188,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Animación de rotación Neon */
-        @keyframes spin-neon {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Contenedor de la imagen para el efecto */
-        .profile-image-container {
-            position: relative;
-            z-index: 1;
-            border-radius: 50%;
-        }
-
-        /* El borde neón giratorio (Pseudo-elemento) */
-        .profile-image-container::before {
-            content: '';
-            position: absolute;
-            inset: -10px; /* Aumentamos el grosor para mayor visibilidad */
-            border-radius: 50%;
-            /* Colores más intensos y saturados para que se note el neón */
-            background: conic-gradient(from 0deg, transparent 0%, #ff69b4 10%, #ff1493 50%, #ff69b4 90%, transparent 100%);
-            animation: spin-neon 2s linear infinite; /* Animación más fluida y rápida */
-            z-index: -1;
-            filter: blur(6px); /* Mayor resplandor */
-        }
-
-        .profile-image {
-            border-radius: 50%;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* --- MEJORAS HERO MOBILE --- */
-        @media (min-width: 769px) {
-            .profile-actions {
-                display: none; /* Ocultar botones móviles en escritorio */
-            }
-            .profile-image-container::before {
-                display: none; /* Ocultar animación de círculo rosa en desktop */
-            }
-        }
-
         @media (max-width: 768px) {
             .hero {
                 padding-top: 150px; /* Más espacio para separar la cápsula del header */
