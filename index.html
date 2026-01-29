@@ -782,8 +782,6 @@ y den vida a las marcas en redes sociales."</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
-
     <div id="video-modal" class="video-modal">
         <div class="video-modal-content">
             <span class="close-modal">&times;</span>
@@ -791,6 +789,15 @@ y den vida a las marcas en redes sociales."</p>
             <video id="modal-video-player" src="" playsinline controls></video>
         </div>
     </div>
+
+    <!-- Modal para imágenes de diseños -->
+    <div id="image-modal" class="image-modal">
+        <span class="close-image-modal">&times;</span>
+        <img class="image-modal-content" id="modal-image" src="" alt="Vista previa">
+    </div>
+
+    <script src="script.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('video-modal');

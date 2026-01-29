@@ -332,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const hideModal = () => {
-        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
         videoModal.classList.remove('active');
         modalVideoPlayer.pause();
         modalVideoPlayer.src = "";
@@ -351,43 +351,85 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
     }
 
-    playPauseBtn.addEventListener('click', () => {
-        if (modalVideoPlayer.paused) {
-            modalVideoPlayer.play();
-            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-        } else {
-            modalVideoPlayer.pause();
-            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-        }
-    });
+    if (playPauseBtn) {
+        playPauseBtn.addEventListener('click', () => {
+            if (modalVideoPlayer.paused) {
+                modalVideoPlayer.play();
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                modalVideoPlayer.pause();
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        });
+    }
 
-    modalVideoPlayer.addEventListener('timeupdate', () => {
-        const progress = (modalVideoPlayer.currentTime / modalVideoPlayer.duration) * 100;
-        progressBarFilled.style.width = `${progress}%`;
-        currentTimeEl.textContent = formatTime(modalVideoPlayer.currentTime);
-    });
+    if (progressBarFilled && currentTimeEl) {
+        modalVideoPlayer.addEventListener('timeupdate', () => {
+            const progress = (modalVideoPlayer.currentTime / modalVideoPlayer.duration) * 100;
+            progressBarFilled.style.width = `${progress}%`;
+            currentTimeEl.textContent = formatTime(modalVideoPlayer.currentTime);
+        });
+    }
 
-    modalVideoPlayer.addEventListener('loadedmetadata', () => {
-        totalTimeEl.textContent = formatTime(modalVideoPlayer.duration);
-    });
+    if (totalTimeEl) {
+        modalVideoPlayer.addEventListener('loadedmetadata', () => {
+            totalTimeEl.textContent = formatTime(modalVideoPlayer.duration);
+        });
+    }
 
-    progressBar.addEventListener('click', (e) => {
-        const progressTime = (e.offsetX / progressBar.offsetWidth) * modalVideoPlayer.duration;
-        modalVideoPlayer.currentTime = progressTime;
-    });
+    if (progressBar) {
+        progressBar.addEventListener('click', (e) => {
+            const progressTime = (e.offsetX / progressBar.offsetWidth) * modalVideoPlayer.duration;
+            modalVideoPlayer.currentTime = progressTime;
+        });
+    }
 
-    volumeBtn.addEventListener('click', () => {
-        modalVideoPlayer.muted = !modalVideoPlayer.muted;
-        if (modalVideoPlayer.muted) {
-            volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
-        } else {
-            volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-        }
-    });
+    if (volumeBtn) {
+        volumeBtn.addEventListener('click', () => {
+            modalVideoPlayer.muted = !modalVideoPlayer.muted;
+            if (modalVideoPlayer.muted) {
+                volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            } else {
+                volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            }
+        });
+    }
     
     modalVideoPlayer.addEventListener('ended', () => {
-        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
     });
+
+    // --- Lógica del Modal de Imágenes (Diseños) ---
+    const imageModal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+    const closeImageModal = document.querySelector('.close-image-modal');
+    const projectCards = document.querySelectorAll('.proyecto-card');
+
+    if (imageModal && modalImage) {
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const img = card.querySelector('img');
+                if (img) {
+                    modalImage.src = img.src;
+                    modalImage.alt = img.alt || 'Diseño';
+                    imageModal.classList.add('active');
+                }
+            });
+        });
+
+        const hideImageModal = () => {
+            imageModal.classList.remove('active');
+            setTimeout(() => {
+                modalImage.src = '';
+            }, 300);
+        };
+
+        if (closeImageModal) closeImageModal.addEventListener('click', hideImageModal);
+        
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal) hideImageModal();
+        });
+    }
 });
 
 const fadeInObserver = new IntersectionObserver((entries, observer) => {

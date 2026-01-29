@@ -1891,6 +1891,7 @@ body.dark-mode .experience-section .experience-inner::before {
     border: 1px solid var(--border-color);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
     transition: transform 240ms cubic-bezier(.22,1,.36,1), box-shadow 240ms ease, border-color 200ms ease;
+    cursor: pointer;
 }
 
 .proyecto-card:hover {
@@ -2567,4 +2568,75 @@ body.dark-mode .videos-section::before {
 /* Clase para ocultar el navbar al hacer scroll */
 .navbar.scroll-hide {
     transform: translateX(-50%) translateY(-200%);
+}
+
+/* --- Image Modal Styles --- */
+.image-modal {
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.image-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.image-modal-content {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.image-modal.active .image-modal-content {
+    transform: scale(1);
+}
+
+.close-image-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #fff;
+    font-size: 2.5rem;
+    cursor: pointer;
+    z-index: 10001;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.close-image-modal:hover {
+    background: rgba(255,255,255,0.2);
+    transform: rotate(90deg);
+    color: var(--accent-hot);
+}
+
+@media (max-width: 768px) {
+    .close-image-modal {
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 2rem;
+    }
 }
