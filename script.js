@@ -21,6 +21,25 @@ allNavLinks.forEach(link => {
     });
 });
 
+/* Restaurar efecto: ocultar el header al hacer scroll y mostrarlo cuando se detiene */
+let isScrolling;
+const navbar = document.querySelector('.navbar');
+window.addEventListener('scroll', () => {
+    if (navLinks && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+    }
+
+    if (window.scrollY > 50) {
+        if (navbar) navbar.classList.add('scroll-hide');
+        window.clearTimeout(isScrolling);
+        isScrolling = setTimeout(() => {
+            if (navbar) navbar.classList.remove('scroll-hide');
+        }, 300);
+    } else {
+        if (navbar) navbar.classList.remove('scroll-hide');
+    }
+}, { passive: true });
+
 let navIndicator; // element for sliding indicator
 function updateNavIndicator() {
     if (!navIndicator) return;
@@ -458,3 +477,72 @@ window.addEventListener('beforeunload', () => {
         window.scrollTo(0, 0);
     }
 });
+
+/* ===== Inline script extracted from index.html (moved here for review) =====
+   The original logic is already consolidated in this file; the block below
+   is preserved as a commented reference to avoid duplicate event handlers.
+
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('video-modal');
+    const videoPlayer = document.getElementById('modal-video-player');
+    const closeBtn = document.querySelector('.close-modal');
+    const videoCards = document.querySelectorAll('.video-card');
+
+    videoCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            // Evitar abrir el modal si se hace clic en el botón de redes sociales
+            if (e.target.closest('.video-social-link')) return;
+
+            const videoSrc = this.getAttribute('data-video-src');
+            if (videoSrc) {
+                videoPlayer.src = videoSrc;
+                modal.style.display = 'flex'; // Usamos flex para centrar
+                modal.classList.add('active');
+                videoPlayer.play();
+            }
+        });
+    });
+
+    function closeModal() {
+        modal.style.display = 'none';
+        modal.classList.remove('active');
+        videoPlayer.pause();
+        videoPlayer.currentTime = 0;
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+
+    // Cerrar al hacer clic fuera del contenido
+    window.addEventListener('click', function(e) {
+        if (e.target === modal) closeModal();
+    });
+
+    // --- ANIMACIÓN HEADER SCROLL ---
+    let isScrolling;
+    const navbar = document.querySelector('.navbar');
+    const navLinks = document.querySelector('.nav-links');
+
+    window.addEventListener('scroll', () => {
+        // Cerrar menú móvil si está abierto al hacer scroll para mejor experiencia
+        if (navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+        }
+
+        // Si estamos bajando y no en el tope, ocultamos
+        if (window.scrollY > 50) {
+            navbar.classList.add('scroll-hide');
+            
+            window.clearTimeout(isScrolling);
+            
+            // Mostrar navbar cuando se detenga el scroll (300ms de pausa)
+            isScrolling = setTimeout(() => {
+                navbar.classList.remove('scroll-hide');
+            }, 300);
+        } else {
+            // Siempre mostrar si estamos en el tope de la página
+            navbar.classList.remove('scroll-hide');
+        }
+    }, { passive: true });
+});
+
+===== End of extracted inline script ===== */
