@@ -301,7 +301,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    setupPagination('.proyectos-grid', '.proyecto-card', '.proyectos-pagination', 4);
     setupPagination('.cuentas-grid', '.cuenta-card', '.cuentas-pagination', 4);
     setupPagination('.videos-grid', '.video-card', '.videos-pagination', 4);
 
@@ -316,6 +315,35 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Paginación minimalista para Educación ---
     setupPagination('.education-grid', '.education-card', '.education-pagination', 3);
     // showPage(1) will reveal initial cards via the function's own logic
+
+    // --- Lógica de la Rueda 3D Infinita ---
+    const carousel = document.getElementById('proyectos-carousel');
+    if (carousel) {
+        const items = carousel.querySelectorAll('.carousel-item');
+        const numItems = items.length;
+
+        function setupWheel() {
+            // Obtenemos el ancho actual del contenedor central (adaptable según CSS de móvil/desktop)
+            const itemWidth = carousel.offsetWidth; 
+            const theta = 360 / numItems;
+            
+            // Calcular el radio para que las tarjetas formen un círculo perfecto sin tocarse
+            const radius = Math.round((itemWidth / 2) / Math.tan(Math.PI / numItems)) + 40; // +40 de margen para fluidez
+
+            // Acercar la rueda hacia adelante en el Eje Z, para que la pared trasera cóncava se vea grande y cerca
+            carousel.style.setProperty('--tz', `${radius * 0.5}px`);
+
+            items.forEach((item, index) => {
+                const angle = theta * index;
+                // Usar -radius invierte el cilindro. Ahora vemos la parte de atrás (cóncava) y se oculta el frente.
+                item.style.transform = `rotateY(${angle}deg) translateZ(-${radius}px)`;
+            });
+        }
+
+        setupWheel();
+        // Recalcular el tamaño si el usuario cambia el tamaño de la ventana
+        window.addEventListener('resize', setupWheel);
+    }
 
 
     const videoModal = document.getElementById('video-modal');
