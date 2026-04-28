@@ -305,16 +305,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setupPagination('.cuentas-grid', '.cuenta-card', '.cuentas-pagination', 4);
     setupPagination('.videos-grid', '.video-card', '.videos-pagination', 4);
 
-    // --- Lógica del carrusel de logos ---
-    const scroller = document.querySelector('.logos-scroller');
-    if (scroller) {
-        const scrollerContent = Array.from(scroller.children);
-        scrollerContent.forEach(item => {
-            const duplicatedItem = item.cloneNode(true);
-            scroller.appendChild(duplicatedItem);
-        });
-    }
-
     // Crear el indicador deslizable debajo del menu
     if (navLinks) {
         navIndicator = document.createElement('span');
