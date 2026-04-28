@@ -355,8 +355,8 @@ body.dark-mode .dark-mode-toggle .fa-moon {
     justify-content: center;
     align-items: center; /* center vertically */
     /* Slightly enlarge hero to occupy more visual area */
-    min-height: calc(100vh - var(--header-h) + 80px);
-    padding: calc(var(--header-h) + 24px) 5% 2rem;
+    min-height: 85vh;
+    padding: 140px 5% 180px;
     text-align: center;
     overflow: hidden;
 }
@@ -471,27 +471,28 @@ body.dark-mode .hello-bubble {
 }
 
 .profile-image {
-    max-width: 300px;
+    max-width: 340px;
     margin-top: 1rem;
     display: block;
     filter: drop-shadow(0 0 15px var(--accent-soft));
+    position: relative;
+    z-index: 2;
 }
 
 .profile-buttons-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: flex-end;
-    padding-bottom: 2rem;
-    gap: 1rem;
+    align-items: center;
+    gap: 15px;
     opacity: 0;
     transition: opacity 0.4s ease;
-    z-index: 2;
+    z-index: 10;
 }
 
 .profile-image-container:hover .profile-buttons-overlay {
@@ -500,14 +501,13 @@ body.dark-mode .hello-bubble {
 
 .profile-btn {
     text-decoration: none;
-    padding: 10px 25px;
+    padding: 12px 24px;
     border-radius: 50px; /* Already rounded, good */
     font-weight: 600;
     transition: all 0.3s ease;
     border: 2px solid transparent;
     text-align: center;
-    min-width: 180px;
-    margin-bottom: 30px;
+    min-width: 160px;
 }
 
 .btn-primary {
@@ -527,6 +527,8 @@ body.dark-mode .hello-bubble {
     margin-top: 1rem;
     width: 100%;
     align-items: center;
+    position: relative;
+    z-index: 100;
 }
 
 .profile-actions .profile-btn {
@@ -544,10 +546,12 @@ body.dark-mode .hello-bubble {
     font-style: italic;
     position: relative;
     padding-left: 20px;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .experience {
     text-align: center;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .stars {
@@ -560,6 +564,51 @@ body.dark-mode .hello-bubble {
     font-size: 2.5rem;
     font-weight: 700;
     margin: 0;
+}
+
+/* --- EFECTO "FRAME 68" HOVER --- */
+.frame-decoration {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 900px; /* Frame mucho más grande e imponente */
+    height: 700px;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    z-index: 1;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.frame-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+}
+
+@media (min-width: 1200px) {
+    .hero-content:hover .testimonial,
+    .hero-content:hover .experience {
+        transform: translateY(-40px); /* Solo suben ligeramente */
+        opacity: 1; /* Se mantienen visibles */
+    }
+
+    .hero-content:hover .intro-text {
+        transform: translateY(240px); /* Distancia exacta para esconderse tras el óvalo rosa */
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease 0.2s; /* Retrasa la transparencia para que lo veas caer tras la foto */
+    }
+
+    .hero-content:hover .frame-decoration {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
 }
 
 @media (max-width: 1200px) {
@@ -651,8 +700,8 @@ body.dark-mode .hello-bubble {
     }
 
     .profile-image {
-        width: 220px;
-        height: 220px;
+        width: 240px;
+        height: 240px;
         object-fit: cover;
         object-position: top;
         border-radius: 50%;
@@ -1282,10 +1331,10 @@ body.dark-mode .hello-bubble {
    BRANDS STRIP SECTION
    =========================== */
 .brands-strip {
-    margin-top: -150px; /* Sube aún más la sección y su título hacia el hero */
-    padding: 50px 0 120px 0; /* Menos padding-top para subir el título, menos inferior para no tapar experiencia */
+    margin-top: -180px; /* Mayor superposición sobre el hero */
+    padding: 90px 0 100px 0; /* Espacio superior compensado para que el texto no quede tapado */
     position: relative;
-    z-index: 94; /* Menor al 95 de experiencia para que esta quede por encima y no oculte el título */
+    z-index: 96; /* Mayor que hero y experience-section para estar superpuesto */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1354,7 +1403,7 @@ body.dark-mode .brands-strip::before {
 
 .experience-section {
     position: relative;
-    margin-top: -80px; /* Reducido para que no se superponga excesivamente y tape los logos */
+    margin-top: -160px; /* Superpone sobre los logos para efecto de capas */
     z-index: 95; /* below navbar z-index but above hero */
     /* full bleed across viewport */
     left: 50%;
@@ -2834,98 +2883,14 @@ body.dark-mode .videos-section::before {
     }
 }
 
-/* Estilos modernos para las tarjetas de video */
-.videos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2rem;
-    padding: 1rem 0;
-}
-
-.video-card {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    cursor: pointer;
-}
-
-.video-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 105, 180, 0.2);
-    border-color: rgba(255, 105, 180, 0.3);
-}
-
-.video-thumbnail {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 9/16; /* Formato vertical tipo Reels/TikTok */
-    overflow: hidden;
-}
-
-.video-thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.video-card:hover .video-thumbnail img {
-    transform: scale(1.05);
-}
-
-.play-overlay {
-    background: rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    backdrop-filter: blur(2px);
-}
-
-.video-card:hover .play-overlay {
-    opacity: 1;
-}
-
-.play-overlay i {
-    font-size: 3.5rem;
-    color: white;
-    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
-    transform: scale(0.8);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.video-card:hover .play-overlay i {
-    transform: scale(1);
-}
-
-.video-info {
-    padding: 1.5rem 1rem;
-    background: linear-gradient(to bottom, rgba(255,255,255,0.02), rgba(255,255,255,0.05));
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    text-align: center;
-}
-
-.video-titulo {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    letter-spacing: 0.5px;
-}
-
 @media (max-width: 768px) {
     .hero {
         padding-top: 150px; /* Más espacio para separar la cápsula del header */
-        padding-bottom: 120px; /* Aumentado para evitar que la sección inferior tape la experiencia */
+        padding-bottom: 30px; /* Mínimo espacio abajo para que el margen negativo de marcas funcione */
         height: auto;
-        min-height: 100vh;
+        min-height: auto; /* CRUCIAL: Quitar 100vh para que no quede un hueco gigante abajo */
         display: flex;
-        align-items: flex-start; /* Evita que el contenido se pegue arriba */
+        align-items: center; /* Centrado natural */
         justify-content: center;
     }
 
@@ -2947,8 +2912,8 @@ body.dark-mode .videos-section::before {
 
     .profile-image-container {
         margin: 20px auto;
-        width: 260px;
-        height: 260px;
+        width: 280px;
+        height: 280px;
         display: flex;
         justify-content: center;
         align-items: center;
