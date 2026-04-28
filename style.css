@@ -1403,7 +1403,7 @@ body.dark-mode .brands-strip::before {
 
 .experience-section {
     position: relative;
-    margin-top: -160px; /* Superpone sobre los logos para efecto de capas */
+    margin-top: -20px; /* Ajustado para que el título baje y no quede oculto bajo las marcas */
     z-index: 95; /* below navbar z-index but above hero */
     /* full bleed across viewport */
     left: 50%;
@@ -1462,7 +1462,7 @@ body.dark-mode .experience-section .experience-inner::before {
 
 @media (max-width: 900px) {
     .experience-section {
-        margin-top: -40px;
+        margin-top: -10px; /* Ajuste sutil para tablets y móviles */
     }
     .experience-section .experience-content {
         padding: 36px 6vw;
@@ -1475,7 +1475,7 @@ body.dark-mode .experience-section .experience-inner::before {
 /* Make the overlay smaller on narrow screens */
 @media (max-width: 900px) {
     .experience-section {
-        margin-top: -40px;
+        margin-top: -10px;
     }
 }
 
