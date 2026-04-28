@@ -1282,83 +1282,79 @@ body.dark-mode .hello-bubble {
    BRANDS STRIP SECTION
    =========================== */
 .brands-strip {
-    margin-top: -60px; /* Sobrepone la sección (y su título) al final del hero */
-    padding: 0 0 160px 0; /* Padding inferior grande para compensar el margin-top negativo de experience-section */
-    background: transparent;
+    margin-top: -150px; /* Sube aún más la sección y su título hacia el hero */
+    padding: 50px 0 120px 0; /* Menos padding-top para subir el título, menos inferior para no tapar experiencia */
     position: relative;
-    z-index: 96; /* Aumentado (mayor al 95 de experiencia) para que el difuminado no tape los logos */
-    overflow: hidden;
+    z-index: 94; /* Menor al 95 de experiencia para que esta quede por encima y no oculte el título */
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.brands-subtitle {
-    font-size: 1.15rem; /* Título ligeramente más grande */
-    font-weight: 600;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 30px;
-    text-align: center;
+.brands-strip::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, var(--overlay-bg) 0%, var(--bg-light) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 40px 40px 0 0;
+    border-top: 1px solid var(--border-glass);
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.05);
+}
+
+body.dark-mode .brands-strip::before {
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.3);
 }
 
 .brands-logos {
     width: 100%;
-    overflow: hidden;
-    /* Efecto de desvanecimiento a los lados para hacer la entrada/salida más suave */
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
-    mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-.brands-scroller {
-    display: flex;
+.brands-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 40px 30px;
     list-style: none;
-    width: max-content;
-    animation: marqueeBrands 40s linear infinite;
-}
-
-.brands-strip:hover .brands-scroller {
-    animation-play-state: paused;
+    justify-items: center;
+    align-items: center;
+    padding: 0;
 }
 
 .brand-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 50px;
 }
 
 .brand-item img {
-    height: 90px; /* Logos notablemente más grandes */
+    height: 95px; /* Aumentado un ~30% */
     width: auto;
-    min-width: 120px; /* Ajustado proporcionalmente al nuevo tamaño */
+    max-width: 100%;
     object-fit: contain;
-    filter: grayscale(100%);
-    opacity: 0.5; /* Separado del filter por compatibilidad en navegadores */
-    transition: filter 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .brand-item:hover img {
-    filter: grayscale(0%);
-    opacity: 1; /* Color real al pasar el ratón */
-    transform: scale(1.1);
-}
-
-@keyframes marqueeBrands {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    transform: scale(1.08); /* Sutil aumento de tamaño por UX, sin cambiar colores */
 }
 
 @media (max-width: 900px) {
-    .brands-strip { margin-top: -30px; padding: 0 0 100px 0; }
-    .brand-item { padding: 0 30px; }
-    .brand-item img { height: 60px; } /* Más grandes también en la versión móvil */
+    .brands-strip { margin-top: -60px; padding: 40px 0 80px 0; }
+    .brands-grid { grid-template-columns: repeat(3, 1fr); gap: 30px 20px; }
+    .brand-item img { height: 65px; } /* Aumentado ~30% en móviles */
+}
+@media (max-width: 480px) {
+    .brands-grid { grid-template-columns: repeat(2, 1fr); gap: 25px 15px; }
 }
 
 .experience-section {
     position: relative;
-    margin-top: -140px; /* overlay the hero */
+    margin-top: -80px; /* Reducido para que no se superponga excesivamente y tape los logos */
     z-index: 95; /* below navbar z-index but above hero */
     /* full bleed across viewport */
     left: 50%;
@@ -1417,7 +1413,7 @@ body.dark-mode .experience-section .experience-inner::before {
 
 @media (max-width: 900px) {
     .experience-section {
-        margin-top: -70px;
+        margin-top: -40px;
     }
     .experience-section .experience-content {
         padding: 36px 6vw;
@@ -1430,11 +1426,12 @@ body.dark-mode .experience-section .experience-inner::before {
 /* Make the overlay smaller on narrow screens */
 @media (max-width: 900px) {
     .experience-section {
-        margin-top: -70px;
+        margin-top: -40px;
     }
 }
 
 .experience-title,
+.brands-title,
 .education-title,
 .proyectos-title,
 .videos-title,
@@ -1454,6 +1451,7 @@ body.dark-mode .experience-section .experience-inner::before {
 
 @media (max-width: 992px) {
     .experience-title,
+    .brands-title,
     .education-title,
     .proyectos-title,
     .videos-title,
@@ -1464,6 +1462,7 @@ body.dark-mode .experience-section .experience-inner::before {
 
 @media (min-width: 1440px) {
     .experience-title,
+    .brands-title,
     .education-title,
     .proyectos-title,
     .videos-title,
@@ -1473,6 +1472,7 @@ body.dark-mode .experience-section .experience-inner::before {
 }
 
 .experience-title span,
+.brands-title span,
 .education-title span,
 .proyectos-title span,
 .videos-title span,
@@ -1484,6 +1484,7 @@ body.dark-mode .experience-section .experience-inner::before {
 }
 
 .experience-title::after,
+.brands-title::after,
 .education-title::after,
 .proyectos-title::after,
 .videos-title::after,
@@ -1892,20 +1893,18 @@ body.dark-mode .experience-section .experience-inner::before {
 
 .logos {
     width: 100%;
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(to right, transparent, white 20%, white 80%, transparent);
-    mask-image: linear-gradient(to right, transparent, white 20%, white 80%, transparent);
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-.logos-scroller {
-    display: flex;
+.logos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
     list-style: none;
-    width: max-content;
-    animation: marquee 40s linear infinite;
-}
-
-.software-strip:hover .logos-scroller {
-    animation-play-state: paused;
+    justify-items: center;
+    padding: 0;
 }
 
 .logo-item {
@@ -2293,6 +2292,7 @@ body.dark-mode .experience-section .experience-inner::before {
 }
 @media (max-width: 480px) {
     .experience-title,
+    .brands-title,
     .education-title,
     .proyectos-title,
     .videos-title {
@@ -2901,7 +2901,7 @@ body.dark-mode .videos-section::before {
 @media (max-width: 768px) {
     .hero {
         padding-top: 150px; /* Más espacio para separar la cápsula del header */
-        padding-bottom: 60px;
+        padding-bottom: 120px; /* Aumentado para evitar que la sección inferior tape la experiencia */
         height: auto;
         min-height: 100vh;
         display: flex;
